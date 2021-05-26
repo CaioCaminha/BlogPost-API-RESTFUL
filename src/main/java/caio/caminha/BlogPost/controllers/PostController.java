@@ -1,6 +1,7 @@
 package caio.caminha.BlogPost.controllers;
 
 import caio.caminha.BlogPost.dto.PostDto;
+import caio.caminha.BlogPost.forms.PostForm;
 import caio.caminha.BlogPost.models.Post;
 import caio.caminha.BlogPost.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostDto> createPost(@RequestBody @Valid PostDto dto, UriComponentsBuilder uriBuilder){
-        Post post = this.postService.savePost(dto);
+    public ResponseEntity<PostDto> createPost(@RequestBody @Valid PostForm form, UriComponentsBuilder uriBuilder){
+        Post post = this.postService.savePost(form);
         URI uri = uriBuilder.path("posts/{id}").buildAndExpand(post.getId()).toUri();
         return ResponseEntity.created(uri).body(new PostDto(post));
     }

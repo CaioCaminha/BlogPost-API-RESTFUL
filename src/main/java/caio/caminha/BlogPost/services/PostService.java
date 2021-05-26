@@ -1,6 +1,7 @@
 package caio.caminha.BlogPost.services;
 
 import caio.caminha.BlogPost.dto.PostDto;
+import caio.caminha.BlogPost.forms.PostForm;
 import caio.caminha.BlogPost.models.Post;
 import caio.caminha.BlogPost.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class PostService {
             return PostDto.converteDto(posts);
     }
 
-    public Post savePost(PostDto dto){
-        Post post = dto.converteParaPost();
+    public Post savePost(PostForm form){
+        Post post = form.converteParaPost();
         this.postRepository.save(post);
         return post;
     }
