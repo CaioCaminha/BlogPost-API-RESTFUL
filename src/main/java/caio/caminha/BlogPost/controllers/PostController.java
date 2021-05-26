@@ -4,6 +4,7 @@ import caio.caminha.BlogPost.dto.PostDto;
 import caio.caminha.BlogPost.forms.PostForm;
 import caio.caminha.BlogPost.models.Post;
 import caio.caminha.BlogPost.services.PostService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,5 +35,15 @@ public class PostController {
         Post post = this.postService.savePost(form);
         URI uri = uriBuilder.path("posts/{id}").buildAndExpand(post.getId()).toUri();
         return ResponseEntity.created(uri).body(new PostDto(post));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PostDto> updatePost(@PathVariable Long id, @RequestBody @Valid PostForm form){
+        return this.postService.updatePost(id, form);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletePost(@PathVariable Long id){
+        return this.postService.deletePost(id);
     }
 }

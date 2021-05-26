@@ -22,4 +22,11 @@ public class PostForm {
     public Post converteParaPost(){
         return new Post(this.titulo, this.texto, this.data);
     }
+
+    public Post updateParaPost(Post post){
+        post.setTitulo(this.titulo);
+        post.setTexto(this.texto);
+        post.setData(this.data);
+        return post;
+    }
 }
