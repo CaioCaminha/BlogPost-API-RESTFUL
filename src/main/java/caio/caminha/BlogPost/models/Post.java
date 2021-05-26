@@ -17,10 +17,11 @@ public class Post {
     private Long id;
     private String titulo;
     private String texto;
-    private LocalDate data = LocalDate.now();
+    private LocalDate data;
 
-    public Post(String titulo, String texto){
+    public Post(String titulo, String texto, LocalDate data){
         this.titulo = titulo;
         this.texto = texto;
+        this.data = data;
     }
 }

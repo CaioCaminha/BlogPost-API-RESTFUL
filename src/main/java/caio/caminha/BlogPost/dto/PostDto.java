@@ -6,30 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostDto {
-    @NotNull@NotEmpty
+    private Long id;
     private String titulo;
-    @NotNull@NotEmpty
     private String texto;
+    private LocalDate data;
 
     public PostDto(Post post) {
+        this.id = post.getId();
         this.titulo = post.getTitulo();
         this.texto = post.getTexto();
+        this.data = post.getData();
     }
 
-    public static Page<PostDto> converteDto(Page<Post> task){
-        return task.map(PostDto::new);
+    public static Page<PostDto> converteDto(Page<Post> posts){
+        return posts.map(PostDto::new);
     }
-
-    public Post converteParaPost(){
-        return new Post(this.titulo, this.texto);
-    }
-
 }
