@@ -16,8 +16,12 @@ import java.util.Optional;
 @Service
 public class PostService {
 
-    @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    public PostService(PostRepository postRepository){
+        this.postRepository = postRepository;
+    }
 
     public Page<PostDto> findPosts(Pageable pageable, String titulo){
         if(titulo == null){
