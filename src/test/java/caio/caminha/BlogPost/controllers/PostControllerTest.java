@@ -43,7 +43,6 @@ public class PostControllerTest {
                 .build();
 
         String json = new ObjectMapper().writeValueAsString(form);
-
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post(uri)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -80,6 +79,72 @@ public class PostControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void updatePostTest() throws Exception{
+        URI uri = new URI("/posts/2");
+        PostForm form = PostForm.builder()
+                .titulo("Estudar Spring")
+                .texto("Estudar Spring Boot e Testes Unitários")
+                .build();
+
+        String json = new ObjectMapper().writeValueAsString(form);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .put(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").isNotEmpty())
+                .andExpect(jsonPath("titulo").value(form.getTitulo()))
+                .andExpect(jsonPath("texto").value(form.getTexto()))
+                .andExpect(jsonPath("data").value(form.getData()));
+
+    }
+    @Test
+    @DisplayName(value = "Deve retornar 400 por erro no input")
+    public void updateIvalidFormPostTest() throws Exception{
+        URI uri = new URI("/posts/2");
+        PostForm form = PostForm.builder()
+                .titulo(null)
+                .texto(null)
+                .build();
+
+        String json = new ObjectMapper().writeValueAsString(form);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .put(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        mockMvc.perform(request)
+                .andExpect(status().isBadRequest());
+
+    }
+    @Test
+    @DisplayName(value = "Deve retornar 400 por erro no id")
+    public void updateIvalidIdPostTest() throws Exception{
+        URI uri = new URI("/posts/9898989898989899990000");
+        PostForm form = PostForm.builder()
+                .titulo("Estudar Spring")
+                .texto("Estudar Spring Boot e todo o spring framework")
+                .build();
+
+        String json = new ObjectMapper().writeValueAsString(form);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .put(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        mockMvc.perform(request)
+                .andExpect(status().isBadRequest());
+
+    }
 
 
 
