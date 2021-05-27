@@ -5,7 +5,6 @@ import caio.caminha.BlogPost.forms.PostForm;
 import caio.caminha.BlogPost.models.Post;
 import caio.caminha.BlogPost.repositories.PostRepository;
 import caio.caminha.BlogPost.services.PostService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
