@@ -2,6 +2,7 @@ package caio.caminha.BlogPost.dto;
 
 import caio.caminha.BlogPost.models.Post;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import java.time.LocalDate;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostDto {
@@ -27,4 +29,6 @@ public class PostDto {
     public static Page<PostDto> converteDto(Page<Post> posts){
         return posts.map(PostDto::new);
     }
+
+
 }
