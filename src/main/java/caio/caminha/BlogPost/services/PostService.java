@@ -34,26 +34,12 @@ public class PostService {
         return post;
     }
 
-    public ResponseEntity<PostDto> updatePost(Long id, PostForm form){
-        Optional<Post> optionalPost = this.postRepository.findById(id);
-            if(optionalPost.isPresent()) {
-                Post post = optionalPost.get();
+    public PostDto updatePost(PostForm form, Post post){
                 form.updateParaPost(post);
                 this.postRepository.save(post);
-                return ResponseEntity.ok(new PostDto(post));
-            }
-        return ResponseEntity.badRequest().build();
+                return new PostDto(post);
     }
 
-    public ResponseEntity deletePost(Long id){
-        Optional<Post> optionalPost = this.postRepository.findById(id);
-        if(optionalPost.isPresent()){
-            Post post = optionalPost.get();
-            this.postRepository.delete(post);
-            return ResponseEntity.ok("Deletado com sucesso!");
-        }
-        return ResponseEntity.badRequest().build();
-    }
 
 
 
