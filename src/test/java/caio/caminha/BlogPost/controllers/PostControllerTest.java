@@ -146,7 +146,16 @@ public class PostControllerTest {
 
     }
 
+    @Test
+    @DisplayName(value = "Deve retornar 200 ao deletar um registro")
+    public void deletePostTest() throws Exception{
+        URI uri = new URI("/posts/2");
 
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .delete(uri);
+        mockMvc.perform(request)
+                .andExpect(status().isOk());
+    }
 
 
 }
